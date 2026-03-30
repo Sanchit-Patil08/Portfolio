@@ -1,0 +1,1068 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Portfolio — Your Name</title>
+
+  <!-- ===== FONTS ===== -->
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=Fraunces:ital,opsz,wght@0,9..144,300;0,9..144,700;1,9..144,400&display=swap" rel="stylesheet"/>
+
+  <style>
+    /* ============================================================
+       CSS VARIABLES — tweak everything from here
+    ============================================================ */
+    :root {
+      --bg:         #faf7f2;          /* warm cream */
+      --surface:    #ffffff;
+      --surface2:   #f2ede4;
+      --border:     #e5ddd0;
+      --accent:     #e8500a;          /* bold burnt orange */
+      --accent-lt:  #fdf0e8;
+      --accent2:    #2563eb;          /* blue for tags */
+      --accent2-lt: #eff6ff;
+      --text:       #1a1512;
+      --muted:      #7a6f64;
+      --green:      #16a34a;
+      --font-head:  'Fraunces', serif;
+      --font-body:  'Plus Jakarta Sans', sans-serif;
+      --radius:     14px;
+      --radius-sm:  8px;
+      --max-w:      880px;
+      --shadow:     0 2px 12px rgba(26,21,18,0.07);
+      --shadow-lg:  0 8px 32px rgba(26,21,18,0.12);
+    }
+
+    /* ============================================================
+       RESET & BASE
+    ============================================================ */
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    html { scroll-behavior: smooth; }
+    body {
+      background: var(--bg);
+      color: var(--text);
+      font-family: var(--font-body);
+      font-size: 16px;
+      line-height: 1.7;
+      -webkit-font-smoothing: antialiased;
+    }
+    a { color: inherit; text-decoration: none; }
+    img { display: block; max-width: 100%; border-radius: var(--radius); }
+
+    /* ============================================================
+       LAYOUT
+    ============================================================ */
+    .container {
+      width: 90%;
+      max-width: var(--max-w);
+      margin: 0 auto;
+    }
+    section {
+      padding: 88px 0;
+      border-bottom: 1px solid var(--border);
+    }
+    section:last-of-type { border-bottom: none; }
+
+    .section-label {
+      display: inline-flex;
+      align-items: center;
+      gap: 7px;
+      font-size: 11.5px;
+      font-weight: 700;
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+      color: var(--accent);
+      margin-bottom: 10px;
+    }
+    .section-label::before {
+      content: '';
+      display: block;
+      width: 18px;
+      height: 2px;
+      background: var(--accent);
+      border-radius: 2px;
+    }
+
+    .section-title {
+      font-family: var(--font-head);
+      font-size: clamp(1.8rem, 4vw, 2.4rem);
+      font-weight: 700;
+      color: var(--text);
+      line-height: 1.15;
+      margin-bottom: 44px;
+    }
+
+    /* ============================================================
+       BUTTONS — big, pill-shaped, satisfying to click
+    ============================================================ */
+    .btn {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
+      padding: 14px 28px;
+      border-radius: 100px;
+      font-family: var(--font-body);
+      font-size: 0.92rem;
+      font-weight: 700;
+      cursor: pointer;
+      border: 2px solid transparent;
+      transition: transform 0.15s, box-shadow 0.15s, background 0.15s, color 0.15s, border-color 0.15s;
+      text-decoration: none;
+    }
+    .btn:active { transform: scale(0.97) !important; }
+
+    .btn-primary {
+      background: var(--accent);
+      color: #fff;
+      box-shadow: 0 4px 16px rgba(232,80,10,0.35);
+    }
+    .btn-primary:hover {
+      background: #cf430a;
+      box-shadow: 0 8px 24px rgba(232,80,10,0.45);
+      transform: translateY(-2px);
+    }
+
+    .btn-outline {
+      background: var(--surface);
+      color: var(--text);
+      border-color: var(--border);
+      box-shadow: var(--shadow);
+    }
+    .btn-outline:hover {
+      border-color: var(--accent);
+      color: var(--accent);
+      background: var(--accent-lt);
+      transform: translateY(-2px);
+    }
+
+    /* card GitHub / Demo buttons */
+    .card-link {
+      display: inline-flex;
+      align-items: center;
+      gap: 7px;
+      padding: 9px 18px;
+      border-radius: 100px;
+      font-size: 0.82rem;
+      font-weight: 700;
+      color: var(--accent);
+      background: var(--accent-lt);
+      border: 1.5px solid rgba(232,80,10,0.2);
+      transition: background 0.15s, transform 0.15s, box-shadow 0.15s;
+      cursor: pointer;
+    }
+    .card-link:hover {
+      background: #fde0cf;
+      transform: translateY(-2px);
+      box-shadow: 0 4px 14px rgba(232,80,10,0.2);
+    }
+    .card-link:active { transform: scale(0.97); }
+    .card-link svg { width: 14px; height: 14px; flex-shrink: 0; }
+
+    /* contact row buttons */
+    .contact-link {
+      display: inline-flex;
+      align-items: center;
+      gap: 10px;
+      padding: 14px 26px;
+      border-radius: 100px;
+      font-size: 0.9rem;
+      font-weight: 700;
+      color: var(--text);
+      background: var(--surface);
+      border: 2px solid var(--border);
+      box-shadow: var(--shadow);
+      transition: all 0.18s;
+    }
+    .contact-link:hover {
+      border-color: var(--accent);
+      color: var(--accent);
+      background: var(--accent-lt);
+      transform: translateY(-2px);
+      box-shadow: 0 6px 20px rgba(232,80,10,0.18);
+    }
+    .contact-link:active { transform: scale(0.97); }
+    .contact-link svg { width: 17px; height: 17px; flex-shrink: 0; }
+
+    /* ============================================================
+       NAV
+    ============================================================ */
+    nav {
+      position: sticky;
+      top: 0;
+      z-index: 100;
+      background: rgba(250,247,242,0.92);
+      backdrop-filter: blur(16px);
+      -webkit-backdrop-filter: blur(16px);
+      border-bottom: 1px solid var(--border);
+      padding: 14px 0;
+    }
+
+    .nav-inner {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      width: 90%;
+      max-width: var(--max-w);
+      margin: 0 auto;
+    }
+
+    .nav-logo {
+      font-family: var(--font-head);
+      font-weight: 700;
+      font-size: 1.3rem;
+      color: var(--accent);
+      font-style: italic;
+    }
+
+    .nav-links {
+      display: flex;
+      gap: 4px;
+      list-style: none;
+    }
+    .nav-links a {
+      font-size: 0.86rem;
+      font-weight: 600;
+      color: var(--muted);
+      padding: 7px 15px;
+      border-radius: 100px;
+      transition: background 0.18s, color 0.18s;
+    }
+    .nav-links a:hover {
+      color: var(--text);
+      background: var(--surface2);
+    }
+
+    /* hamburger */
+    .hamburger {
+      display: none;
+      flex-direction: column;
+      gap: 5px;
+      cursor: pointer;
+      background: none;
+      border: none;
+      padding: 6px;
+    }
+    .hamburger span {
+      display: block;
+      width: 22px;
+      height: 2.5px;
+      background: var(--text);
+      border-radius: 2px;
+      transition: all 0.3s;
+    }
+    .nav-links.open {
+      display: flex;
+      flex-direction: column;
+      position: absolute;
+      top: 100%;
+      left: 0; right: 0;
+      background: var(--surface);
+      border-bottom: 1px solid var(--border);
+      padding: 16px 20px;
+      gap: 4px;
+      box-shadow: var(--shadow-lg);
+    }
+    .nav-links.open a { padding: 10px 16px; border-radius: var(--radius-sm); }
+
+    /* ============================================================
+       HERO
+    ============================================================ */
+    #hero {
+      padding: 96px 0 80px;
+      border-bottom: 1px solid var(--border);
+      background:
+        radial-gradient(ellipse 60% 50% at 72% 40%, rgba(232,80,10,0.08) 0%, transparent 70%),
+        radial-gradient(ellipse 40% 40% at 18% 80%, rgba(37,99,235,0.05) 0%, transparent 60%),
+        var(--bg);
+    }
+
+    .hero-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 9px;
+      background: var(--surface);
+      border: 1.5px solid var(--border);
+      border-radius: 100px;
+      padding: 7px 18px 7px 12px;
+      font-size: 0.8rem;
+      font-weight: 600;
+      color: var(--muted);
+      margin-bottom: 28px;
+      box-shadow: var(--shadow);
+    }
+    .hero-badge .dot {
+      width: 8px; height: 8px;
+      background: var(--green);
+      border-radius: 50%;
+      animation: glow 2.2s infinite;
+    }
+    @keyframes glow {
+      0%, 100% { box-shadow: 0 0 0 0 rgba(22,163,74,0.5); }
+      50%       { box-shadow: 0 0 0 5px rgba(22,163,74,0); }
+    }
+
+    .hero-name {
+      font-family: var(--font-head);
+      font-size: clamp(2.8rem, 9vw, 5.2rem);
+      font-weight: 700;
+      line-height: 1.02;
+      letter-spacing: -0.03em;
+      color: var(--text);
+      margin-bottom: 14px;
+    }
+    .hero-name .highlight {
+      color: var(--accent);
+      font-style: italic;
+    }
+
+    .hero-title {
+      font-size: clamp(1rem, 2.5vw, 1.15rem);
+      font-weight: 600;
+      color: var(--muted);
+      margin-bottom: 20px;
+    }
+
+    .hero-intro {
+      font-size: 1.02rem;
+      color: var(--muted);
+      max-width: 510px;
+      line-height: 1.85;
+      margin-bottom: 40px;
+    }
+
+    .hero-cta {
+      display: flex;
+      gap: 14px;
+      flex-wrap: wrap;
+      align-items: center;
+    }
+
+    /* ============================================================
+       ABOUT
+    ============================================================ */
+    .about-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 52px;
+      align-items: start;
+    }
+    .about-text p {
+      color: var(--muted);
+      margin-bottom: 16px;
+      font-size: 0.97rem;
+    }
+    .stat-row {
+      display: flex;
+      gap: 32px;
+      margin-top: 32px;
+      flex-wrap: wrap;
+      padding-top: 28px;
+      border-top: 1px solid var(--border);
+    }
+    .stat { display: flex; flex-direction: column; gap: 3px; }
+    .stat-num {
+      font-family: var(--font-head);
+      font-size: 2rem;
+      font-weight: 700;
+      color: var(--accent);
+      line-height: 1;
+    }
+    .stat-desc {
+      font-size: 0.75rem;
+      font-weight: 700;
+      color: var(--muted);
+      text-transform: uppercase;
+      letter-spacing: 0.06em;
+    }
+
+    .about-image-slot {
+      background: var(--surface2);
+      border: 2px dashed var(--border);
+      border-radius: var(--radius);
+      aspect-ratio: 4/5;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      color: var(--muted);
+      font-size: 0.83rem;
+      text-align: center;
+      padding: 24px;
+      gap: 8px;
+      overflow: hidden;
+    }
+    .about-image-slot .img-icon { font-size: 2.2rem; opacity: 0.35; }
+
+    /* ============================================================
+       PROJECTS
+    ============================================================ */
+    .projects-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(270px, 1fr));
+      gap: 22px;
+    }
+
+    .card {
+      background: var(--surface);
+      border: 1.5px solid var(--border);
+      border-radius: var(--radius);
+      padding: 28px;
+      display: flex;
+      flex-direction: column;
+      gap: 14px;
+      box-shadow: var(--shadow);
+      transition: box-shadow 0.22s, transform 0.22s, border-color 0.22s;
+    }
+    .card:hover {
+      box-shadow: var(--shadow-lg);
+      transform: translateY(-5px);
+      border-color: rgba(232,80,10,0.3);
+    }
+
+    .card-top {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+    .card-icon { font-size: 1.9rem; line-height: 1; }
+
+    .card-badge {
+      font-size: 0.7rem;
+      font-weight: 700;
+      color: var(--green);
+      background: #dcfce7;
+      padding: 3px 10px;
+      border-radius: 100px;
+      letter-spacing: 0.04em;
+    }
+
+    .card-title {
+      font-family: var(--font-head);
+      font-size: 1.1rem;
+      font-weight: 700;
+      color: var(--text);
+      line-height: 1.3;
+    }
+
+    .card-desc {
+      font-size: 0.88rem;
+      color: var(--muted);
+      line-height: 1.75;
+      flex: 1;
+    }
+
+    .card-image-slot {
+      width: 100%;
+      aspect-ratio: 16/9;
+      background: var(--surface2);
+      border: 1.5px dashed var(--border);
+      border-radius: var(--radius-sm);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: var(--muted);
+      font-size: 0.75rem;
+      overflow: hidden;
+      gap: 6px;
+    }
+
+    .tech-stack { display: flex; flex-wrap: wrap; gap: 6px; }
+
+    .tag {
+      background: var(--accent2-lt);
+      border: 1px solid rgba(37,99,235,0.15);
+      color: var(--accent2);
+      font-size: 0.72rem;
+      font-weight: 700;
+      padding: 3px 11px;
+      border-radius: 100px;
+      letter-spacing: 0.03em;
+    }
+
+    .card-links {
+      display: flex;
+      gap: 10px;
+      flex-wrap: wrap;
+      margin-top: 2px;
+    }
+
+    /* ============================================================
+       SKILLS
+    ============================================================ */
+    .skills-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+      gap: 16px;
+    }
+
+    .skill-group {
+      background: var(--surface);
+      border: 1.5px solid var(--border);
+      border-radius: var(--radius);
+      padding: 24px;
+      box-shadow: var(--shadow);
+      transition: transform 0.2s, box-shadow 0.2s;
+    }
+    .skill-group:hover {
+      transform: translateY(-2px);
+      box-shadow: var(--shadow-lg);
+    }
+
+    .skill-group-title {
+      font-size: 0.74rem;
+      font-weight: 800;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: var(--accent);
+      margin-bottom: 16px;
+      padding-bottom: 12px;
+      border-bottom: 2px solid var(--accent-lt);
+    }
+
+    .skill-list {
+      list-style: none;
+      display: flex;
+      flex-direction: column;
+      gap: 9px;
+    }
+    .skill-list li {
+      font-size: 0.9rem;
+      color: var(--text);
+      font-weight: 500;
+      display: flex;
+      align-items: center;
+      gap: 9px;
+    }
+    .skill-list li::before {
+      content: '';
+      width: 6px; height: 6px;
+      background: var(--accent);
+      border-radius: 50%;
+      flex-shrink: 0;
+      opacity: 0.65;
+    }
+
+    /* ============================================================
+       CONTACT
+    ============================================================ */
+    #contact .contact-wrapper {
+      background: var(--surface);
+      border: 1.5px solid var(--border);
+      border-radius: 20px;
+      padding: 60px 48px;
+      text-align: center;
+      box-shadow: var(--shadow-lg);
+      background-image: radial-gradient(ellipse 70% 60% at 50% 110%, rgba(232,80,10,0.07) 0%, transparent 70%);
+    }
+
+    #contact h2 {
+      font-family: var(--font-head);
+      font-size: clamp(1.8rem, 4vw, 2.6rem);
+      font-weight: 700;
+      margin-bottom: 12px;
+      font-style: italic;
+    }
+
+    #contact .contact-sub {
+      color: var(--muted);
+      font-size: 0.97rem;
+      margin-bottom: 40px;
+      max-width: 400px;
+      margin-left: auto;
+      margin-right: auto;
+      line-height: 1.8;
+    }
+
+    .contact-links {
+      display: flex;
+      justify-content: center;
+      gap: 14px;
+      flex-wrap: wrap;
+    }
+
+    /* ============================================================
+       FOOTER
+    ============================================================ */
+    footer {
+      padding: 28px 0;
+      text-align: center;
+      color: var(--muted);
+      font-size: 0.82rem;
+      background: var(--surface2);
+      border-top: 1px solid var(--border);
+    }
+    footer strong { color: var(--text); }
+
+    /* ============================================================
+       RESPONSIVE
+    ============================================================ */
+    @media (max-width: 680px) {
+      nav { position: relative; }
+      .hamburger { display: flex; }
+      .nav-links:not(.open) { display: none; }
+
+      .about-grid { grid-template-columns: 1fr; }
+      .about-image-slot { aspect-ratio: 3/2; max-height: 220px; }
+      .projects-grid { grid-template-columns: 1fr; }
+      .skills-grid   { grid-template-columns: 1fr 1fr; }
+
+      #contact .contact-wrapper { padding: 36px 22px; }
+
+      .hero-cta { flex-direction: column; align-items: flex-start; }
+      .hero-cta .btn { width: 100%; justify-content: center; }
+    }
+
+    @media (max-width: 420px) {
+      .skills-grid { grid-template-columns: 1fr; }
+      .contact-links { flex-direction: column; align-items: center; }
+      .contact-link  { width: 100%; justify-content: center; }
+    }
+
+  </style>
+</head>
+<body>
+
+  <!-- ===================================================
+       NAV
+  =================================================== -->
+  <nav>
+    <div class="nav-inner">
+      <!-- ✏️ Replace "YN." with your initials -->
+      <div class="nav-logo">YN.</div>
+
+      <ul class="nav-links" id="navLinks">
+        <li><a href="#about">About</a></li>
+        <li><a href="#projects">Projects</a></li>
+        <li><a href="#skills">Skills</a></li>
+        <li><a href="#contact">Contact</a></li>
+      </ul>
+
+      <button class="hamburger" id="hamburger" aria-label="Toggle menu">
+        <span></span><span></span><span></span>
+      </button>
+    </div>
+  </nav>
+
+
+  <!-- ===================================================
+       HERO
+  =================================================== -->
+  <section id="hero">
+    <div class="container">
+
+      <!-- ✏️ Profile photo — uncomment and add your image:
+      <div style="width:120px;height:120px;border-radius:50%;overflow:hidden;border:3px solid var(--accent);margin-bottom:28px;box-shadow:0 4px 16px rgba(232,80,10,0.22);">
+        <img src="your-photo.jpg" alt="Your Name" style="width:100%;height:100%;object-fit:cover;border-radius:50%;" />
+      </div>
+      -->
+
+      <div class="hero-badge">
+        <span class="dot"></span>
+        Open to opportunities
+      </div>
+
+      <!-- ✏️ Replace "Your Name" -->
+      <h1 class="hero-name">
+        Hi, I'm<br/><span class="highlight">Sanchit Patil</span>
+      </h1>
+
+      <!-- ✏️ Edit your title -->
+      <p class="hero-title">First-Year Engineering Student · @ FRCRCE CSE student  </p>
+
+      <!-- ✏️ Edit your intro -->
+      <p class="hero-intro">
+        I build backend systems using Flask and develop real-world applications focused on solving practical problems. Finalist in 3 out of 6 hackathons, with strong interest in API integration, system design, and aspiring to work further on AIML, Data Analayst as well as problem solving skills using Data Structures & Algorithms.
+      </p>
+
+      <div class="hero-cta">
+        <a href="#projects" class="btn btn-primary">
+          View Projects
+          <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+        </a>
+        <a href="#contact" class="btn btn-outline">
+          Get in Touch
+        </a>
+      </div>
+
+    </div>
+  </section>
+
+
+  <!-- ===================================================
+       ABOUT
+  =================================================== -->
+  <!-- <section id="about">
+    <div class="container">
+      <p class="section-label">About Me</p>
+      <h2 class="section-title">A bit about myself</h2>
+
+      <div class="about-grid">
+        <div class="about-text">
+          
+          <p>
+            I'm a first-year engineering student with a strong interest in
+            backend development. I enjoy building systems that solve real
+            problems — from hospital management tools to language
+            preservation platforms.
+          </p>
+          <p>
+            My primary stack is Python + Flask. I've worked with REST APIs,
+            relational databases, and authentication flows through personal
+            projects and hackathon builds.
+          </p>
+          <p>
+            Outside coding I actively practice DSA, and I've competed in
+            hackathons where I reached the finalist round. Always chasing
+            the next interesting problem to crack.
+          </p>
+
+          <div class="stat-row">
+            <div class="stat">
+              <span class="stat-num">4+</span>
+              <span class="stat-desc">Projects Built</span>
+            </div>
+            <div class="stat">
+              <span class="stat-num">6+</span>
+              <span class="stat-desc">Hackathons</span>
+            </div>
+            <div class="stat">
+              <span class="stat-num">1yr</span>
+              <span class="stat-desc">Coding Exp.</span>
+            </div>
+          </div>
+        </div>
+
+        ✏️ Replace div with <img src="..." alt="..." class="about-image-slot" style="object-fit:cover;" />
+        <div class="about-image-slot">
+          <span class="img-icon">📷</span>
+          Drop your photo here<br/>
+          <small style="opacity:0.6;margin-top:4px;display:block;">Replace this div with an &lt;img&gt; tag</small>
+        </div>
+      </div>
+    </div>
+  </section> -->
+
+  <!-- ABOUT SECTION -->
+<section id="about">
+  <div class="container">
+    <p class="section-label">About Me</p>
+    <h2 class="section-title">A bit about myself</h2>
+
+    <div class="about-grid">
+      <div class="about-text">
+        <p>
+          I'm a first-year engineering student with a strong interest in
+          backend development. I enjoy building systems that solve real
+          problems — from hospital management tools to language
+          preservation platforms.
+        </p>
+        <p>
+          My primary stack is Python + Flask. I've worked with REST APIs,
+          relational databases, and authentication flows through personal
+          projects and hackathon builds.
+        </p>
+        <p>
+          Outside coding I actively practice DSA, and I've competed in
+          hackathons where I reached the finalist round. Always chasing
+          the next interesting problem to crack.
+        </p>
+
+        <div class="stat-row">
+          <div class="stat">
+            <span class="stat-num">4+</span>
+            <span class="stat-desc">Projects Built</span>
+          </div>
+          <div class="stat">
+            <span class="stat-num">6+</span>
+            <span class="stat-desc">Hackathons</span>
+          </div>
+          <div class="stat">
+            <span class="stat-num">1yr</span>
+            <span class="stat-desc">Coding Exp.</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- Illustration instead of photo -->
+      <div class="about-image-slot" style="display:flex; flex-direction:column; align-items:center; justify-content:center; gap:10px; background:#f5f5f5; padding:20px; border-radius:12px;">
+  
+  <!-- Tech stack icons -->
+  <div style="display:flex; gap:10px; flex-wrap:wrap; justify-content:center;">
+    <span style="font-size:2rem;">🐍</span> <!-- Python -->
+    <span style="font-size:2rem;">🖥️</span> <!-- Backend -->
+    <span style="font-size:2rem;">🗄️</span> <!-- Databases -->
+    <span style="font-size:2rem;">⚡</span> <!-- Fast APIs -->
+    <span style="font-size:2rem;">💻</span> <!-- Hackathons -->
+  </div>
+
+  <!-- Optional motivational line -->
+  <p style="text-align:center; font-size:0.9rem; color:#555; margin-top:5px;">
+    Building real-world projects & solving problems
+  </p>
+
+</div>
+    </div>
+  </div>
+</section>
+
+
+  <!-- ===================================================
+       PROJECTS
+  =================================================== -->
+  <section id="projects">
+    <div class="container">
+      <p class="section-label">Work</p>
+      <h2 class="section-title">Projects</h2>
+
+      <div class="projects-grid">
+
+        <!-- ─── CARD 1 ─── -->
+        <div class="card">
+          <div class="card-top">
+            <div class="card-icon">🏥</div>
+            <span class="card-badge">Flask · Backend</span>
+          </div>
+          <!-- ✏️ Replace div with <img src="..." class="card-image-slot" style="object-fit:cover;" /> -->
+          <div class="card-image-slot">📸 Project screenshot</div>
+          <div class="card-title">Hospital Information System</div>
+          <p class="card-desc">
+            Developed a full-stack web application using Flask, Bootstrap, and SQLite to streamline hospital operations. Features include role-based dashboards, emergency patient intake, bed assignment, inter-hospital transfers, and real-time patient tracking. Implemented secure authentication, notifications, and responsive UI for multiple user roles (Admin, Doctor, Staff, Family).
+          </p>
+          <div class="tech-stack">
+            <span class="tag">Python</span>
+            <span class="tag">Flask</span>
+            <span class="tag">SQLite</span>
+            <span class="tag">REST API</span>
+            <span class="tag">Auth</span>
+            <span class="tag">Bootstrap</span>
+          </div>
+          <div class="card-links">
+            <!-- ✏️ Replace # with your GitHub repo URL -->
+            <!-- <a href="#" class="card-link">
+              <svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2C6.477 2 2 6.477 2 12c0 4.418 2.865 8.166 6.839 9.489.5.092.682-.217.682-.482 0-.237-.009-.868-.013-1.703-2.782.604-3.369-1.341-3.369-1.341-.454-1.154-1.11-1.462-1.11-1.462-.908-.62.069-.608.069-.608 1.003.07 1.531 1.03 1.531 1.03.892 1.529 2.341 1.087 2.91.831.092-.646.35-1.086.636-1.336-2.22-.253-4.555-1.11-4.555-4.943 0-1.091.39-1.984 1.029-2.683-.103-.253-.446-1.27.098-2.647 0 0 .84-.269 2.75 1.025A9.564 9.564 0 0112 6.844c.85.004 1.705.114 2.504.336 1.909-1.294 2.747-1.025 2.747-1.025.546 1.377.202 2.394.1 2.647.64.699 1.028 1.592 1.028 2.683 0 3.842-2.339 4.687-4.566 4.935.359.309.678.919.678 1.852 0 1.336-.012 2.415-.012 2.744 0 .267.18.579.688.481C19.138 20.163 22 16.418 22 12c0-5.523-4.477-10-10-10z"/></svg>
+              GitHub
+            </a> -->
+            <!-- ✏️ Uncomment for a live demo link:
+            <a href="#" class="card-link">🔗 Live Demo</a>
+            -->
+          </div>
+        </div>
+
+        <!-- ─── CARD 2 ─── -->
+        <div class="card">
+          <div class="card-top">
+            <div class="card-icon">📖</div>
+            <span class="card-badge">🏆Finalist</span>
+          </div>
+          <div class="card-image-slot">📸 Project screenshot</div>
+          <div class="card-title">Language Revival Platform</div>
+          <p class="card-desc">
+            Developed a full-stack Flask web application to preserve and promote Indian languages. Features include a community forum, multi-language dictionary, and text/audio archive with automatic detection and transcription. Implemented secure authentication, interactive posts, and a responsive UI supporting Hindi, Tamil, Telugu, and Bengali.
+          </p>
+          <div class="tech-stack">
+            <span class="tag">Python</span>
+            <span class="tag">Flask</span>
+            <span class="tag">REST API</span>
+            <span class="tag">Database</span>
+          </div>
+          <div class="card-links">
+            <!-- <a href="#" class="card-link">
+              <svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2C6.477 2 2 6.477 2 12c0 4.418 2.865 8.166 6.839 9.489.5.092.682-.217.682-.482 0-.237-.009-.868-.013-1.703-2.782.604-3.369-1.341-3.369-1.341-.454-1.154-1.11-1.462-1.11-1.462-.908-.62.069-.608.069-.608 1.003.07 1.531 1.03 1.531 1.03.892 1.529 2.341 1.087 2.91.831.092-.646.35-1.086.636-1.336-2.22-.253-4.555-1.11-4.555-4.943 0-1.091.39-1.984 1.029-2.683-.103-.253-.446-1.27.098-2.647 0 0 .84-.269 2.75 1.025A9.564 9.564 0 0112 6.844c.85.004 1.705.114 2.504.336 1.909-1.294 2.747-1.025 2.747-1.025.546 1.377.202 2.394.1 2.647.64.699 1.028 1.592 1.028 2.683 0 3.842-2.339 4.687-4.566 4.935.359.309.678.919.678 1.852 0 1.336-.012 2.415-.012 2.744 0 .267.18.579.688.481C19.138 20.163 22 16.418 22 12c0-5.523-4.477-10-10-10z"/></svg>
+              GitHub
+            </a> -->
+          </div>
+        </div>
+
+        <!-- ─── CARD 3 ─── -->
+
+        <div class="card">
+          <div class="card-top">
+            <div class="card-icon">🚀</div>
+            <span class="card-badge">New</span>
+          </div>
+          <div class="card-image-slot">📸 Project screenshot</div>
+          <div class="card-title">Nexa-Bank - An AI onboarding agent for Banks</div>
+          <p class="card-desc">Developed a full-stack AI-powered bank onboarding system using Flask, SQLite, and Bootstrap, featuring secure KYC, biometric verification, OCR document extraction, and OTP authentication. Implemented ARIA, a conversational AI assistant, for guided account setup and real-time user support, alongside an admin dashboard for risk assessment, application review, and audit logging.</p>
+          <div class="tech-stack">
+            <span class="tag">Python</span>
+            <span class="tag">Flask</span>
+            <span class="tag">SQLite</span>
+            <span class="tag">REST API</span>
+            <span class="tag">Auth</span>
+            <span class="tag">Bootstrap</span>
+          </div>
+          <div class="card-links">
+            <!-- <a href="https://github.com/gotlolfourt/innovgenius" class="card-link">GitHub</a> -->
+          </div>
+        </div>
+
+        <!-- Card 4-->
+
+        <div class="card">
+          <div class="card-top">
+            <div class="card-icon">🌾</div>
+            <span class="card-badge">🏆 Finalist</span>
+          </div>
+          <div class="card-image-slot">📸 Project screenshot</div>
+          <div class="card-title">Smart Crop System</div>
+          <p class="card-desc">
+            A smart agriculture tool built for a hackathon. Uses crop data
+            and environmental inputs to recommend optimal farming
+            decisions. Reached the finalist round.
+          </p>
+          <div class="tech-stack">
+            <span class="tag">Python</span>
+            <span class="tag">Flask</span>
+            <span class="tag">API</span>
+          </div>
+          <div class="card-links">
+            <a href="#" class="card-link">
+              <svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2C6.477 2 2 6.477 2 12c0 4.418 2.865 8.166 6.839 9.489.5.092.682-.217.682-.482 0-.237-.009-.868-.013-1.703-2.782.604-3.369-1.341-3.369-1.341-.454-1.154-1.11-1.462-1.11-1.462-.908-.62.069-.608.069-.608 1.003.07 1.531 1.03 1.531 1.03.892 1.529 2.341 1.087 2.91.831.092-.646.35-1.086.636-1.336-2.22-.253-4.555-1.11-4.555-4.943 0-1.091.39-1.984 1.029-2.683-.103-.253-.446-1.27.098-2.647 0 0 .84-.269 2.75 1.025A9.564 9.564 0 0112 6.844c.85.004 1.705.114 2.504.336 1.909-1.294 2.747-1.025 2.747-1.025.546 1.377.202 2.394.1 2.647.64.699 1.028 1.592 1.028 2.683 0 3.842-2.339 4.687-4.566 4.935.359.309.678.919.678 1.852 0 1.336-.012 2.415-.012 2.744 0 .267.18.579.688.481C19.138 20.163 22 16.418 22 12c0-5.523-4.477-10-10-10z"/></svg>
+              GitHub
+            </a>
+          </div>
+        </div>
+       
+
+      </div>
+    </div>
+  </section>
+
+
+  <!-- ===================================================
+       SKILLS
+  =================================================== -->
+  <section id="skills">
+    <div class="container">
+      <p class="section-label">Toolkit</p>
+      <h2 class="section-title">Skills</h2>
+
+      <div class="skills-grid">
+
+        <!-- ✏️ Edit skill groups and items below -->
+
+        <div class="skill-group">
+          <div class="skill-group-title">Languages</div>
+          <ul class="skill-list">
+            <li>C and C++</li>
+            <li>Python</li>
+            <li>Java <small style="color:var(--muted);font-weight:400">(Learning)</small></li>
+            <li>HTML &amp; CSS</li>
+            <li>JavaScript</li>
+          </ul>
+        </div>
+
+        <div class="skill-group">
+          <div class="skill-group-title">Frameworks</div>
+          <ul class="skill-list">
+            <li>Flask</li>
+            <li>REST APIs</li>
+            <li>Bootstrap</li>
+          </ul>
+        </div>
+
+        <div class="skill-group">
+          <div class="skill-group-title">Backend / DB</div>
+          <ul class="skill-list">
+            <li>SQL / SQLite</li>
+            <li>Database Design</li>
+            <li>Authentication</li>
+            <li>API Design</li>
+          </ul>
+        </div>
+
+        <div class="skill-group">
+          <div class="skill-group-title">CS Fundamentals</div>
+          <ul class="skill-list">
+            <li>OOPs</li>
+            <li>Problem Solving</li>
+            <li>Debugging</li>
+          </ul>
+        </div>
+
+        <!-- ✏️ Add more groups as needed:
+        <div class="skill-group">
+          <div class="skill-group-title">Tools</div>
+          <ul class="skill-list">
+            <li>Git &amp; GitHub</li>
+            <li>VS Code</li>
+            <li>Postman</li>
+          </ul>
+        </div>
+        -->
+
+      </div>
+    </div>
+  </section>
+
+
+  <!-- ===================================================
+       CONTACT
+  =================================================== -->
+  <section id="contact">
+    <div class="container">
+      <div class="contact-wrapper">
+
+        <h2>Let's connect ✦</h2>
+        <!-- ✏️ Edit subtitle -->
+        <p class="contact-sub">
+          Open to internships, collaborations, and interesting projects.
+          Don't hesitate to reach out!
+        </p>
+
+        <div class="contact-links">
+
+          <!-- ✏️ Replace with your email -->
+          <a href="sancpravinpatil@gmail.com" class="contact-link">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="4" width="20" height="16" rx="2"/><path d="m22 7-8.97 5.7a1.94 1.94 0 0 1-2.06 0L2 7"/></svg>
+            Email Me
+          </a>
+
+          <!-- ✏️ Replace with your GitHub URL -->
+          <a href="https://github.com/yourusername" target="_blank" class="contact-link">
+            <svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2C6.477 2 2 6.477 2 12c0 4.418 2.865 8.166 6.839 9.489.5.092.682-.217.682-.482 0-.237-.009-.868-.013-1.703-2.782.604-3.369-1.341-3.369-1.341-.454-1.154-1.11-1.462-1.11-1.462-.908-.62.069-.608.069-.608 1.003.07 1.531 1.03 1.531 1.03.892 1.529 2.341 1.087 2.91.831.092-.646.35-1.086.636-1.336-2.22-.253-4.555-1.11-4.555-4.943 0-1.091.39-1.984 1.029-2.683-.103-.253-.446-1.27.098-2.647 0 0 .84-.269 2.75 1.025A9.564 9.564 0 0112 6.844c.85.004 1.705.114 2.504.336 1.909-1.294 2.747-1.025 2.747-1.025.546 1.377.202 2.394.1 2.647.64.699 1.028 1.592 1.028 2.683 0 3.842-2.339 4.687-4.566 4.935.359.309.678.919.678 1.852 0 1.336-.012 2.415-.012 2.744 0 .267.18.579.688.481C19.138 20.163 22 16.418 22 12c0-5.523-4.477-10-10-10z"/></svg>
+            GitHub
+          </a>
+
+          <!-- ✏️ Replace with your LinkedIn URL -->
+          <a href="https://www.linkedin.com/in/sanchit-patil-162755374?utm_source=share_via&utm_content=profile&utm_medium=member_android" target="_blank" class="contact-link">
+            <svg viewBox="0 0 24 24" fill="currentColor"><path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-2-2 2 2 0 0 0-2 2v7h-4v-7a6 6 0 0 1 6-6z"/><rect x="2" y="9" width="4" height="12"/><circle cx="4" cy="4" r="2"/></svg>
+            LinkedIn
+          </a>
+
+        </div>
+      </div>
+    </div>
+  </section>
+
+
+  <!-- ===================================================
+       FOOTER
+  =================================================== -->
+  <footer>
+    <div class="container">
+      <!-- ✏️ Edit footer text -->
+      <p>Designed &amp; built by <strong>Sanchit Patil</strong> · 2025</p>
+    </div>
+  </footer>
+
+
+  <!-- ===================================================
+       JS — mobile nav only
+  =================================================== -->
+  <script>
+    const hamburger = document.getElementById('hamburger');
+    const navLinks  = document.getElementById('navLinks');
+
+    hamburger.addEventListener('click', () => {
+      navLinks.classList.toggle('open');
+    });
+
+    navLinks.querySelectorAll('a').forEach(link => {
+      link.addEventListener('click', () => navLinks.classList.remove('open'));
+    });
+  </script>
+
+</body>
+</html>
